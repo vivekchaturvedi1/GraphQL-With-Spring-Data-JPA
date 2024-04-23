@@ -4,12 +4,14 @@ import com.example.entity.Subject;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class SubjectResponse {
 
-	private Integer id;
+	private int id;
 	
 	private String subjectName;
 

@@ -16,10 +16,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "student")
 public class Student {
@@ -27,7 +29,7 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Integer id;
+	private int id;
 	
 	@Column(name = "first_name")
 	private String firstName;
@@ -42,6 +44,7 @@ public class Student {
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
-	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+//	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	private List<Subject> learningSubjects;
 }

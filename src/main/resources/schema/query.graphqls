@@ -3,6 +3,7 @@ type Query {
 	secondQuery : String
 	fullName(sampleRequest : SampleRequest) : String
 	getStudentById(id : Int) : StudentResponse
+	getAllStudents : [StudentResponse]
 }
 
 input SampleRequest {
@@ -17,6 +18,7 @@ type StudentResponse {
         email: String
     	street: String
     	city: String
+    	fullName: String
     	learningSubjects: [SubjectResponse]
 }
 
