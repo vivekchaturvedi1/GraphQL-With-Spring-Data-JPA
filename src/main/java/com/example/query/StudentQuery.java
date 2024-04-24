@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class Query1 implements GraphQLQueryResolver {
+public class StudentQuery implements GraphQLQueryResolver {
 
-	private static final Logger logger = LoggerFactory.getLogger(Query1.class);
+	private static final Logger logger = LoggerFactory.getLogger(StudentQuery.class);
 
 	@Autowired
 	StudentService service;
@@ -39,13 +39,13 @@ public class Query1 implements GraphQLQueryResolver {
 	public StudentResponse getStudentById (int id) {
 		logger.info("{}#getStudentById() is called  | Input id : {}", this.getClass().getSimpleName(), id);
 		StudentResponse response = new StudentResponse(service.getStudentById(id));
-		logger.info("{}#getStudentById() is going to exit  |  response : {}", this.getClass().getSimpleName(), response);
+//		logger.info("{}#getStudentById() is going to exit  |  response : {}", this.getClass().getSimpleName(), response);
 		return response;
 	}
 
 
 	public List<StudentResponse> getAllStudents () {
-		logger.info("{}#getAllStudents() is called !");
+		logger.info("{}#getAllStudents() is called ! ", this.getClass().getSimpleName());
 		List<Student> response = service.getAllStudents();
 		List<StudentResponse> studentResponseList = new ArrayList<>();
 		response.forEach(student-> studentResponseList.add(new StudentResponse(student)));

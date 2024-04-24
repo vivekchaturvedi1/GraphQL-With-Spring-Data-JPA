@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.request.CreateStudentRequest;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,8 +44,16 @@ public class Student {
 	@OneToOne
 	@JoinColumn(name = "address_id")
 	private Address address;
-	
+
+
+//	Commenting it out to enable Edge Filter feature of GraphQL
 //	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	private List<Subject> learningSubjects;
+
+	public Student (CreateStudentRequest createStudentRequest) {
+		this.firstName = createStudentRequest.getFirstName();
+		this.lastName = createStudentRequest.getLastName();
+		this.email = createStudentRequest.getEmail();
+	}
 }

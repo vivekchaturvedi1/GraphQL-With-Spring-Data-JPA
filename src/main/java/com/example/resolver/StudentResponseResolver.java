@@ -2,6 +2,7 @@ package com.example.resolver;
 
 import com.example.entity.Student;
 import com.example.entity.Subject;
+import com.example.enums.SubjectNameFilter;
 import com.example.repository.StudentRepository;
 import com.example.request.SampleRequest;
 import com.example.response.StudentResponse;
@@ -24,7 +25,7 @@ public class StudentResponseResolver implements GraphQLResolver<StudentResponse>
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<SubjectResponse> getLearningSubjects (StudentResponse studentResponse){
+    /*public List<SubjectResponse> getLearningSubjects (StudentResponse studentResponse){
         logger.info("{}#getLearningSubjects() is called !", this.getClass().getSimpleName());
         List<SubjectResponse> learningSubjects = new ArrayList<>();
         int studentId = studentResponse.getId();
@@ -34,6 +35,23 @@ public class StudentResponseResolver implements GraphQLResolver<StudentResponse>
 				learningSubjects.add(new SubjectResponse(subject));
 			}
 		}
+        // logger.info("{}#getLearningSubjects() is going to exit | learningSubjects : {}", this.getClass().getSimpleName(), learningSubjects);
+        return learningSubjects;
+    }*/
+
+    // Adding GraphQL Edge Filter (SubjectNameFilter)
+    public List<SubjectResponse> getLearningSubjects (StudentResponse studentResponse, SubjectNameFilter subjectNameFilter){
+        logger.info("{}#getLearningSubjects() is called !", this.getClass().getSimpleName());
+        List<SubjectResponse> learningSubjects = new ArrayList<>();
+        int studentId = studentResponse.getId();
+        Student student = studentRepository.findById(studentId).get();
+        if (student.getLearningSubjects() != null) {
+            for (Subject subject: student.getLearningSubjects()) {
+                if( subjectNameFilter.name().equalsIgnoreCase(SubjectNameFilter.AllSubjects.name())|| subjectNameFilter.name().equalsIgnoreCase(subject.getSubjectName())) {
+                    learningSubjects.add(new SubjectResponse(subject));
+                }
+            }
+        }
         logger.info("{}#getLearningSubjects() is going to exit | learningSubjects : {}", this.getClass().getSimpleName(), learningSubjects);
         return learningSubjects;
     }

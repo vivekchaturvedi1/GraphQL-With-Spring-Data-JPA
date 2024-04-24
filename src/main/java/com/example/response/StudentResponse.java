@@ -20,6 +20,8 @@ public class StudentResponse {
 
 	private int id;
 
+	private int addressId;
+
 	private String firstName;
 
 	private String lastName;
@@ -41,7 +43,8 @@ public class StudentResponse {
 		this.firstName = student.getFirstName();
 		this.lastName = student.getLastName();
 		this.email = student.getEmail();
-		
+
+		this.addressId = student.getAddress().getId();
 		this.street = student.getAddress().getStreet();
 		this.city = student.getAddress().getCity();
 
